@@ -1,11 +1,6 @@
 /* eslint-env mocha */
-const chai = require('chai');
 const express = require('express');
 const { getEndpoints } = require('../src/index');
-
-const { expect } = chai;
-
-chai.should();
 
 let app;
 let router;
