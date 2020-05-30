@@ -1,4 +1,4 @@
-/* eslint-env mocha */
+require('jest-extended');
 const express = require('express');
 const { getEndpoints } = require('../src/index');
 
@@ -8,15 +8,17 @@ let router;
 function checkResults(endpoints) {
   describe('should retrieve an array', () => {
     // eslint-disable-next-line no-unused-expressions
-    endpoints.should.not.be.empty;
-    endpoints.should.be.an('array');
-    endpoints.should.have.length(2);
+    it('checkResults pre-expects', () => {
+      expect(Object.keys(endpoints)).not.toHaveLength(0);
+      expect(Array.isArray(endpoints)).toBe(true);
+      expect(endpoints).toHaveLength(2);
+    });
 
     it('of objects', () => {
       endpoints.forEach((endpoint) => {
         // eslint-disable-next-line no-unused-expressions
-        endpoint.should.not.be.empty;
-        endpoint.should.be.an('object');
+        expect(Object.keys(endpoint)).not.toHaveLength(0);
+        expect(endpoint).toBeInstanceOf(Object);
       });
     });
 
@@ -26,35 +28,35 @@ function checkResults(endpoints) {
           describe('the path', () => {
             it('as a string', () => {
               // eslint-disable-next-line no-unused-expressions
-              endpoint.path.should.not.be.empty;
-              endpoint.path.should.be.a('string');
+              expect(endpoint.path).not.toHaveLength(0);
+              expect(typeof endpoint.path).toBe('string');
             });
 
-            it('with the slashs', () => {
-              endpoint.path.should.contains('/');
+            it('with the slashes', () => {
+              expect(endpoint.path).toStartWith('/');
             });
           });
 
           describe('the methods', () => {
             it('as an array', () => {
               // eslint-disable-next-line no-unused-expressions
-              endpoint.methods.should.not.be.empty;
-              endpoint.methods.should.be.an('array');
+              expect(endpoint.methods).not.toHaveLength(0);
+              expect(Array.isArray(endpoint.methods)).toBe(true);
             });
 
             endpoint.methods.forEach((method) => {
               it('of strings', () => {
                 // eslint-disable-next-line no-unused-expressions
-                method.should.not.be.empty;
-                method.should.be.a('string');
+                expect(Object.keys(method)).not.toHaveLength(0);
+                expect(typeof method).toBe('string');
               });
 
               it('in uppercase', () => {
-                expect(method).to.be.equal(method.toUpperCase());
+                expect(method).toBe(method.toUpperCase());
               });
 
               it('excluding the _all ones', () => {
-                expect(method).to.not.be.equal('_ALL');
+                expect(method).not.toBe('_ALL');
               });
             });
           });
@@ -155,8 +157,8 @@ describe('express-list-endpoints', () => {
       const endpoints = getEndpoints(app);
 
       it('should parse the endpoints correctly', () => {
-        expect(endpoints).to.have.length(1);
-        expect(endpoints[0].path).to.be.equal('/router/:id/friends');
+        expect(endpoints).toHaveLength(1);
+        expect(endpoints[0].path).toBe('/router/:id/friends');
       });
 
       describe('and also has a sub-router on the router', () => {
@@ -176,8 +178,8 @@ describe('express-list-endpoints', () => {
         const endpoints = getEndpoints(app);
 
         it('should parse the endpoints correctly', () => {
-          expect(endpoints).to.have.length(1);
-          expect(endpoints[0].path).to.be.equal('/router/:postId/sub-router');
+          expect(endpoints).toHaveLength(1);
+          expect(endpoints[0].path).toBe('/router/:postId/sub-router');
         });
       });
     });
@@ -202,9 +204,9 @@ describe('express-list-endpoints', () => {
       const endpoints = getEndpoints(router);
 
       it('should parse the endpoint correctly', () => {
-        endpoints[0].path.should.be.equal('/some_route');
-        endpoints[1].path.should.be.equal('/some_other_router');
-        endpoints[2].path.should.be.equal('/__last_route__');
+        expect(endpoints[0].path).toBe('/some_route');
+        expect(endpoints[1].path).toBe('/some_other_router');
+        expect(endpoints[2].path).toBe('/__last_route__');
       });
     });
 
@@ -226,9 +228,9 @@ describe('express-list-endpoints', () => {
       const endpoints = getEndpoints(router);
 
       it('should parse the endpoint corretly', () => {
-        endpoints[0].path.should.be.equal('/some-route');
-        endpoints[1].path.should.be.equal('/some-other-router');
-        endpoints[2].path.should.be.equal('/--last-route--');
+        expect(endpoints[0].path).toBe('/some-route');
+        expect(endpoints[1].path).toBe('/some-other-router');
+        expect(endpoints[2].path).toBe('/--last-route--');
       });
     });
 
@@ -250,9 +252,9 @@ describe('express-list-endpoints', () => {
       const endpoints = getEndpoints(router);
 
       it('should parse the endpoint corretly', () => {
-        endpoints[0].path.should.be.equal('/some.route');
-        endpoints[1].path.should.be.equal('/some.other.router');
-        endpoints[2].path.should.be.equal('/..last.route..');
+        expect(endpoints[0].path).toBe('/some.route');
+        expect(endpoints[1].path).toBe('/some.other.router');
+        expect(endpoints[2].path).toBe('/..last.route..');
       });
     });
 
@@ -274,9 +276,9 @@ describe('express-list-endpoints', () => {
       const endpoints = getEndpoints(router);
 
       it('should parse the endpoint correctly', () => {
-        endpoints[0].path.should.be.equal('/s0m3_r.oute');
-        endpoints[1].path.should.be.equal('/v1.0.0');
-        endpoints[2].path.should.be.equal('/not_sure.what-1m.d01ng');
+        expect(endpoints[0].path).toBe('/s0m3_r.oute');
+        expect(endpoints[1].path).toBe('/v1.0.0');
+        expect(endpoints[2].path).toBe('/not_sure.what-1m.d01ng');
       });
     });
   });
@@ -294,11 +296,11 @@ describe('express-list-endpoints', () => {
     const endpoints = getEndpoints(app);
 
     it('should retrieve the list of endpoints and its methods', () => {
-      expect(endpoints).to.have.length(1);
-      expect(endpoints[0]).to.have.own.property('path');
-      expect(endpoints[0]).to.have.own.property('methods');
-      expect(endpoints[0].path).to.be.equal('/');
-      expect(endpoints[0].methods[0]).to.be.equal('GET');
+      expect(endpoints).toHaveLength(1);
+      expect(endpoints[0]).toHaveProperty('path');
+      expect(endpoints[0]).toHaveProperty('methods');
+      expect(endpoints[0].path).toBe('/');
+      expect(endpoints[0].methods[0]).toBe('GET');
     });
   });
 
@@ -316,9 +318,9 @@ describe('express-list-endpoints', () => {
     const endpoints = getEndpoints(app);
 
     it('should retrieve the correct built path', () => {
-      expect(endpoints).to.have.length(2);
-      expect(endpoints[0].path).to.be.equal('/multi/level/my/path');
-      expect(endpoints[1].path).to.be.equal('/super/duper/multi/level/my/path');
+      expect(endpoints).toHaveLength(2);
+      expect(endpoints[0].path).toBe('/multi/level/my/path');
+      expect(endpoints[1].path).toBe('/super/duper/multi/level/my/path');
     });
 
     describe('with params', () => {
@@ -339,9 +341,9 @@ describe('express-list-endpoints', () => {
       const endpoints = getEndpoints(app);
 
       it('should retrieve the correct built path', () => {
-        expect(endpoints).to.have.length(2);
-        expect(endpoints[0].path).to.be.equal('/multi/:multiId/level/:levelId/users/:id');
-        expect(endpoints[1].path).to.be.equal('/multi/:multiId/level/:levelId/super/users/:id');
+        expect(endpoints).toHaveLength(2);
+        expect(endpoints[0].path).toBe('/multi/:multiId/level/:levelId/users/:id');
+        expect(endpoints[1].path).toBe('/multi/:multiId/level/:levelId/super/users/:id');
       });
     });
 
@@ -359,8 +361,8 @@ describe('express-list-endpoints', () => {
       const endpoints = getEndpoints(app);
 
       it('should retrieve the correct built path', () => {
-        expect(endpoints).to.have.length(1);
-        expect(endpoints[0].path).to.be.equal('/multi/level/super/users/:id/friends');
+        expect(endpoints).toHaveLength(1);
+        expect(endpoints[0].path).toBe('/multi/level/super/users/:id/friends');
       });
     });
   });
@@ -375,8 +377,8 @@ describe('express-list-endpoints', () => {
     const endpoints = getEndpoints(app);
 
     it('should retrieve the correct built path', () => {
-      expect(endpoints).to.have.length(1);
-      expect(endpoints[0].path).to.be.equal('/users/:id');
+      expect(endpoints).toHaveLength(1);
+      expect(endpoints[0].path).toBe('/users/:id');
     });
   });
 
@@ -390,8 +392,8 @@ describe('express-list-endpoints', () => {
     const endpoints = getEndpoints(app);
 
     it('should retrieve the correct built path', () => {
-      expect(endpoints).to.have.length(1);
-      expect(endpoints[0].path).to.be.equal('/users/:id/friends');
+      expect(endpoints).toHaveLength(1);
+      expect(endpoints[0].path).toBe('/users/:id/friends');
     });
   });
 
@@ -409,15 +411,15 @@ describe('express-list-endpoints', () => {
     const endpoints = getEndpoints(router);
 
     it('should retrieve the correct built path', () => {
-      expect(endpoints).to.have.length(1);
-      expect(endpoints[0].path).to.be.equal('/test');
-      expect(endpoints[0].methods[0]).to.be.equal('POST');
+      expect(endpoints).toHaveLength(1);
+      expect(endpoints[0].path).toBe('/test');
+      expect(endpoints[0].methods[0]).toBe('POST');
     });
 
     it('should retrieve the correct built methods', () => {
-      expect(endpoints[0].methods).to.have.length(2);
-      expect(endpoints[0].methods[0]).to.be.equal('POST');
-      expect(endpoints[0].methods[1]).to.be.equal('DELETE');
+      expect(endpoints[0].methods).toHaveLength(2);
+      expect(endpoints[0].methods[0]).toBe('POST');
+      expect(endpoints[0].methods[1]).toBe('DELETE');
     });
   });
 });
