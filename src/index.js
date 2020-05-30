@@ -103,4 +103,16 @@ const getEndpoints = (app) => {
   return endpoints;
 };
 
-module.exports = getEndpoints;
+const printRoutes = (app) => {
+  getEndpoints(app)
+    .sort((a, b) => a.path.localeCompare(b.path))
+    .map(ep => ep.methods.map(method => `${method}\t${ep.path}`))
+    .flat()
+    // eslint-disable-next-line no-console
+    .forEach(ep => console.log(ep));
+};
+
+module.exports = {
+  getEndpoints,
+  printRoutes,
+};

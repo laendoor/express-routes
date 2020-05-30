@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 const chai = require('chai');
 const express = require('express');
-const listEndpoints = require('../src/index');
+const { getEndpoints } = require('../src/index');
 
 const { expect } = chai;
 
@@ -92,7 +92,7 @@ describe('express-list-endpoints', () => {
         res.end();
       });
 
-    checkResults(listEndpoints(app));
+    checkResults(getEndpoints(app));
   });
 
   describe('when called over a router', () => {
@@ -117,7 +117,7 @@ describe('express-list-endpoints', () => {
         res.end();
       });
 
-    checkResults(listEndpoints(router));
+    checkResults(getEndpoints(router));
   });
 
   describe('when called over an app with mounted routers', () => {
@@ -145,7 +145,7 @@ describe('express-list-endpoints', () => {
 
     app.use('/router', router);
 
-    checkResults(listEndpoints(app));
+    checkResults(getEndpoints(app));
 
     describe('and some of the routers has the option `mergeParams`', () => {
       app = express();
@@ -157,7 +157,7 @@ describe('express-list-endpoints', () => {
 
       app.use('/router', router);
 
-      const endpoints = listEndpoints(app);
+      const endpoints = getEndpoints(app);
 
       it('should parse the endpoints correctly', () => {
         expect(endpoints).to.have.length(1);
@@ -178,7 +178,7 @@ describe('express-list-endpoints', () => {
         router.use('/:postId/sub-router', subRouter);
 
         // eslint-disable-next-line no-shadow
-        const endpoints = listEndpoints(app);
+        const endpoints = getEndpoints(app);
 
         it('should parse the endpoints correctly', () => {
           expect(endpoints).to.have.length(1);
@@ -204,7 +204,7 @@ describe('express-list-endpoints', () => {
         res.end();
       });
 
-      const endpoints = listEndpoints(router);
+      const endpoints = getEndpoints(router);
 
       it('should parse the endpoint correctly', () => {
         endpoints[0].path.should.be.equal('/some_route');
@@ -228,7 +228,7 @@ describe('express-list-endpoints', () => {
         res.end();
       });
 
-      const endpoints = listEndpoints(router);
+      const endpoints = getEndpoints(router);
 
       it('should parse the endpoint corretly', () => {
         endpoints[0].path.should.be.equal('/some-route');
@@ -252,7 +252,7 @@ describe('express-list-endpoints', () => {
         res.end();
       });
 
-      const endpoints = listEndpoints(router);
+      const endpoints = getEndpoints(router);
 
       it('should parse the endpoint corretly', () => {
         endpoints[0].path.should.be.equal('/some.route');
@@ -276,7 +276,7 @@ describe('express-list-endpoints', () => {
         res.end();
       });
 
-      const endpoints = listEndpoints(router);
+      const endpoints = getEndpoints(router);
 
       it('should parse the endpoint correctly', () => {
         endpoints[0].path.should.be.equal('/s0m3_r.oute');
@@ -296,7 +296,7 @@ describe('express-list-endpoints', () => {
 
     app.use('/', router);
 
-    const endpoints = listEndpoints(app);
+    const endpoints = getEndpoints(app);
 
     it('should retrieve the list of endpoints and its methods', () => {
       expect(endpoints).to.have.length(1);
@@ -318,7 +318,7 @@ describe('express-list-endpoints', () => {
     app.use('/multi/level', router);
     app.use('/super/duper/multi/level', router);
 
-    const endpoints = listEndpoints(app);
+    const endpoints = getEndpoints(app);
 
     it('should retrieve the correct built path', () => {
       expect(endpoints).to.have.length(2);
@@ -341,7 +341,7 @@ describe('express-list-endpoints', () => {
       app.use('/multi/:multiId/level/:levelId', router);
 
       // eslint-disable-next-line no-shadow
-      const endpoints = listEndpoints(app);
+      const endpoints = getEndpoints(app);
 
       it('should retrieve the correct built path', () => {
         expect(endpoints).to.have.length(2);
@@ -361,7 +361,7 @@ describe('express-list-endpoints', () => {
       app.use('/multi/level', router);
 
       // eslint-disable-next-line no-shadow
-      const endpoints = listEndpoints(app);
+      const endpoints = getEndpoints(app);
 
       it('should retrieve the correct built path', () => {
         expect(endpoints).to.have.length(1);
@@ -377,7 +377,7 @@ describe('express-list-endpoints', () => {
       res.end();
     });
 
-    const endpoints = listEndpoints(app);
+    const endpoints = getEndpoints(app);
 
     it('should retrieve the correct built path', () => {
       expect(endpoints).to.have.length(1);
@@ -392,7 +392,7 @@ describe('express-list-endpoints', () => {
       res.end();
     });
 
-    const endpoints = listEndpoints(app);
+    const endpoints = getEndpoints(app);
 
     it('should retrieve the correct built path', () => {
       expect(endpoints).to.have.length(1);
@@ -411,7 +411,7 @@ describe('express-list-endpoints', () => {
         res.end();
       });
 
-    const endpoints = listEndpoints(router);
+    const endpoints = getEndpoints(router);
 
     it('should retrieve the correct built path', () => {
       expect(endpoints).to.have.length(1);
