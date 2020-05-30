@@ -16,12 +16,18 @@
     "lint": "eslint ./src ./test",
     "test": "mocha"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^7.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "express": "^4.17.1",
+    "husky": "^4.2.5",
     "mocha": "^7.2.0"
   },
   "engines": {
