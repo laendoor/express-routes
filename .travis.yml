@@ -5,9 +5,9 @@ before_script:
   - npm install
   - npm run lint
 
-script: npm test:ci
+script: npm run test:ci
 
-after_success: npm coveralls
+after_success: npm run coveralls
 
 email:
   on_failure: change
