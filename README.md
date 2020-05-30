@@ -1,33 +1,62 @@
-# Express List Endpoints
+# Express Routes
 
-[![Build Status](https://travis-ci.org/AlbertoFdzM/express-list-endpoints.svg?branch=master)](https://travis-ci.org/AlbertoFdzM/express-list-endpoints) [![codecov.io](https://codecov.io/github/AlbertoFdzM/express-list-endpoints/coverage.svg?branch=master)](https://codecov.io/github/AlbertoFdzM/express-list-endpoints?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/de84aedb98256b62c3ef/maintainability)](https://codeclimate.com/github/AlbertoFdzM/express-list-endpoints/maintainability)
+[![Build Status](https://img.shields.io/travis/leandrojdl/express-routes/master?logo=travis)](https://travis-ci.org/leandrojdl/express-routes)
+[![Dependencies](https://img.shields.io/david/leandrojdl/express-routes.svg)](https://david-dm.org/leandrojdl/express-routes)
+[![Coverage Status](https://img.shields.io/coveralls/github/leandrojdl/express-routes/master?logo=coveralls)](https://coveralls.io/github/leandrojdl/express-routes?branch=master)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/leandrojdl/express-routes?logo=code-climate)](https://codeclimate.com/github/leandrojdl/express-routes/maintainability)
 
-[![NPM](https://nodei.co/npm/express-list-endpoints.png)](https://nodei.co/npm/express-list-endpoints/)
+[![NPM](https://nodei.co/npm/@leandrojdl/express-routes.png)](https://nodei.co/npm/@leandrojdl/express-routes/)
+
+> This is a fork from [AlbertoFdzM/express-list-endpoints](https://github.com/AlbertoFdzM/express-list-endpoints) repository.
 
 Express endpoint parser to retrieve a list of the passed router with the set verbs.
 
-## Example of use
+## Installation
 
-```javascript
-const listEndpoints = require('express-list-endpoints')
+```sh
+npm install @leandrojdl/express-routes
+```
 
-let app = require('express')();
+## Examples of use
+
+### Print Routes
+
+```js
+const { printRoutes } = require('express-list-endpoints');
+
+const app = require('express')();
 
 app.route('/')
-  .all(function(req, res) {
-    // Handle request
-  })
-  .get(function(req, res) {
-    // Handle request
-  })
-  .post(function(req, res) {
-    // Handle request
-  });
+  .all(function(req, res) { /* Handle request */ })
+  .get(function(req, res) { /* Handle request */ })
+  .post(function(req, res) { /* Handle request */ });
 
 app.route('/about')
-  .get(function(req, res) {
-    // Handle request
-  });
+  .get(function(req, res) { /* Handle request */ });
+
+printRoutes(app);
+// It omits the 'all' verbs.
+/*
+GET   /
+POST  /
+GET   /about
+*/
+```
+
+### Get Endpoints
+
+```js
+const { getEndpoints } = require('express-list-endpoints');
+
+const app = require('express')();
+
+app.route('/')
+  .all(function(req, res) { /* Handle request */ })
+  .get(function(req, res) { /* Handle request */ })
+  .post(function(req, res) { /* Handle request */ });
+
+app.route('/about')
+  .get(function(req, res) { /* Handle request */ });
 
 console.log(listEndpoints(app));
 /* It omits the 'all' verbs.
