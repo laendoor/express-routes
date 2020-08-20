@@ -5,7 +5,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/github/leandrojdl/express-routes/master?logo=coveralls)](https://coveralls.io/github/leandrojdl/express-routes?branch=master)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/leandrojdl/express-routes?logo=code-climate)](https://codeclimate.com/github/leandrojdl/express-routes/maintainability)
 
-[![NPM](https://nodei.co/npm/@leandrojdl/express-routes.png)](https://nodei.co/npm/@leandrojdl/express-routes/)
+[![NPM](https://nodei.co/npm/express-routes.png)](https://nodei.co/npm/express-routes/)
 
 > This is a fork from [AlbertoFdzM/express-list-endpoints](https://github.com/AlbertoFdzM/express-list-endpoints) repository.
 
@@ -14,7 +14,7 @@ Express endpoint parser to retrieve a list of the passed router with the set ver
 ## Installation
 
 ```sh
-npm install @leandrojdl/express-routes
+npm install express-routes
 ```
 
 ## Examples of use
