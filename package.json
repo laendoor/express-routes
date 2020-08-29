@@ -1,6 +1,6 @@
 {
-  "name": "express-routes",
-  "version": "1.0.0",
+  "name": "@leandrojdl/express-routes",
+  "version": "5.0.0-rc",
   "description": "A express package to list all registered endpoints and its verbs",
   "main": "src/index.js",
   "author": "Alberto Fernandez <albertofdzm@gmail.com>",
