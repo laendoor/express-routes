@@ -15,8 +15,7 @@
   "scripts": {
     "lint": "eslint ./src ./test",
     "test": "jest --verbose",
-    "test:ci": "jest --verbose --coverage",
-    "coveralls": "coveralls < coverage/lcov.info"
+    "test:ci": "jest --verbose --coverage"
   },
   "husky": {
     "hooks": {
