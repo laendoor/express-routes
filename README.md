@@ -14,7 +14,7 @@ Express endpoint parser to retrieve a list of the passed router with the set ver
 ## Installation
 
 ```sh
-npm install express-list-endpoints
+npm install express-routes
 ```
 
 ## Examples of use
@@ -22,7 +22,7 @@ npm install express-list-endpoints
 ### Print Routes
 
 ```js
-const { printRoutes } = require('express-list-endpoints');
+const { printRoutes } = require('express-routes');
 
 const app = require('express')();
 
@@ -46,7 +46,7 @@ GET   /about
 ### Get Endpoints
 
 ```js
-const { getEndpoints } = require('express-list-endpoints');
+const { getEndpoints } = require('express-routes');
 
 const app = require('express')();
 
