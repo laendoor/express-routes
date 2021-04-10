@@ -14,7 +14,7 @@ Express endpoint parser to retrieve a list of the passed router with the set ver
 ## Installation
 
 ```sh
-npm install express-routes
+npm install express-list-endpoints
 ```
 
 ## Examples of use
