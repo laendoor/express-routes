@@ -22,7 +22,7 @@ npm install express-routes
 ### Print Routes
 
 ```js
-const { printRoutes } = require('express-list-endpoints');
+const { printRoutes } = require('express-routes');
 
 const app = require('express')();
 
@@ -46,7 +46,7 @@ GET   /about
 ### Get Endpoints
 
 ```js
-const { getEndpoints } = require('express-list-endpoints');
+const { getEndpoints } = require('express-routes');
 
 const app = require('express')();
 
